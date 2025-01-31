@@ -1,0 +1,14 @@
+services:
+  clamav:
+    restart: always
+    image: mkodockx/docker-clamav:alpine
+    container_name: clamav-server
+    ports:
+      - "3310:3310"
+    volumes:
+      - ./clamav-data:/var/lib/clamav
+    healthcheck:
+      test: ["CMD", "./check.sh"]
+      interval: 60s
+      retries: 3
+      start_period: 120s
